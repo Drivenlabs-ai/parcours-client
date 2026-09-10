@@ -1,8 +1,8 @@
-# Portail de feedback
+# Portail support
 
-Une petite application locale pour pratiquer Claude Code sur un dépôt facile à comprendre.
+Une application locale pour pratiquer Claude Code sur un petit projet complet : frontend, API, données et tests.
 
-Une page pour déposer un retour et consulter les retours avec leur statut : « À étudier », « Prévu » ou « Livré ». Les nouveaux retours restent dans le navigateur ; « Réinitialiser la démo » retrouve les trois exemples de départ.
+Créer une demande, rechercher et filtrer les tickets, répondre au client et suivre la résolution. Toutes les données sont fictives.
 
 ## Démarrer
 
@@ -14,26 +14,51 @@ cd parcours-client
 npm start
 ```
 
-Ouvrir **http://localhost:3000**. Aucune dépendance à installer.
+Ouvrir **http://localhost:3000**. Aucune dépendance à installer. `Ctrl+C` arrête le serveur.
 
-Dans Claude Desktop, ouvrir l'onglet **Code**, choisir un environnement **Local** et sélectionner le dossier cloné. Le même dépôt peut être ouvert dans VS Code ou depuis Claude Code au terminal.
+Dans Claude Desktop, onglet **Code**, choisir **Local** et sélectionner le dossier cloné. Chacun peut aussi utiliser VS Code ou Claude Code au terminal.
 
-## Les fichiers
+## Comprendre le dépôt
 
 ```text
-index.html        La page
-src/feedbacks.js  Les exemples de retours et les statuts
-src/app.js        Le formulaire, la sauvegarde et l'affichage
-src/style.css     L'apparence
-server.mjs        Le serveur local
+CLAUDE.md             Contexte commun pour Claude Code
+frontend/
+  index.html          La page
+  app.js              L'affichage et les interactions
+  api.js              Les appels à l'API
+  style.css           L'apparence
+backend/
+  CLAUDE.md           Consignes propres au backend
+  server.js           Démarrage du serveur local
+  app.js              Routes HTTP et fichiers publics
+  domain.js           Règles métier et validation
+  store.js            Lecture et écriture des tickets
+data/
+  tickets.seed.json   Trois demandes fictives de départ
+  tickets.local.json  Données de travail, créées au démarrage et ignorées par Git
+docs/
+  produit.md          Le périmètre et les règles métier
+  api.md              Le contrat entre frontend et backend
+tests/
+  api.test.js         Tests HTTP isolés sur des données temporaires
 ```
 
-L'application utilise HTML, CSS et JavaScript, sans framework. Le serveur expose uniquement les fichiers de l'application et écoute sur la machine locale. Aucun compte, service externe ou appel d'IA n'est nécessaire pour la faire fonctionner.
+Le navigateur appelle l'API ; l'API valide les entrées et enregistre les tickets dans un fichier JSON. Un seul processus Node.js utilise ce fichier. Le serveur écoute sur la machine locale, à l'adresse `127.0.0.1`.
 
-Claude Code utilise séparément votre compte et les services de votre fournisseur de modèle : une application locale ne signifie pas que l'inférence est locale.
+## Vérifier
 
-## Pour l'atelier
+```sh
+npm test
+```
 
-Le dépôt contient uniquement des données fictives. Chacun travaille sur son clone. Les exercices et les consignes sont fournis sur le site de la formation.
+Les tests créent des fichiers temporaires. Ils ne modifient pas les tickets que vous voyez dans l'application.
 
-Le code initial est volontairement court : les évolutions seront réalisées pendant les exercices.
+Le bouton **Réinitialiser la démo** rétablit les trois demandes fictives après confirmation. Les demandes ajoutées dans la démo seront alors supprimées.
+
+## Pour la formation
+
+Les consignes sont sur le site de la formation. Ce dépôt sert à travailler le contexte, les instructions, les skills, les hooks et la délégation sur des évolutions concrètes.
+
+L'application fonctionne sans clé API, compte supplémentaire ni service externe. Claude Code utilise séparément votre compte et les services de votre fournisseur de modèle : une application locale ne signifie pas que l'inférence est locale.
+
+Le dépôt est public pour faciliter le clonage. Le service lui-même reste local et sans authentification ; les données sont fictives.
