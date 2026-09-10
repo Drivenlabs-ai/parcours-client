@@ -62,3 +62,7 @@ Les consignes sont sur le site de la formation. Ce dépôt sert à travailler le
 L'application fonctionne sans clé API, compte supplémentaire ni service externe. Claude Code utilise séparément votre compte et les services de votre fournisseur de modèle : une application locale ne signifie pas que l'inférence est locale.
 
 Le dépôt est public pour faciliter le clonage. Le service lui-même reste local et sans authentification ; les données sont fictives.
+
+## Identité visuelle
+
+Le logo et les couleurs reprennent l’identité d’Imagine Human pour cet atelier. Le logo appartient à Imagine Human. La police Work Sans est embarquée localement sous [licence SIL Open Font License](frontend/brand/OFL-Work-Sans.txt) : aucun chargement de police ni d’image depuis un service tiers.

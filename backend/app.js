@@ -4,6 +4,8 @@ import { AppError, statuses } from "./domain.js";
 import { createStore } from "./store.js";
 
 const staticFiles = new Map([
+  ["/frontend/brand/imagine-human.png", ["brand/imagine-human.png", "image/png"]],
+  ["/frontend/brand/work-sans.woff2", ["brand/work-sans.woff2", "font/woff2"]],
   ["/", ["index.html", "text/html"]],
   ["/frontend/app.js", ["app.js", "text/javascript"]],
   ["/frontend/api.js", ["api.js", "text/javascript"]],
@@ -103,7 +105,9 @@ export function createApp(store = createStore()) {
         new URL(`../frontend/${file[0]}`, import.meta.url),
       );
       response.writeHead(200, {
-        "Content-Type": `${file[1]}; charset=utf-8`,
+        "Content-Type": file[1].startsWith("text/")
+          ? `${file[1]}; charset=utf-8`
+          : file[1],
         "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
       });
