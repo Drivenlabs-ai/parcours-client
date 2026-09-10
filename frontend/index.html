@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support · Acme</title>
+    <link rel="stylesheet" href="/frontend/style.css" />
+    <script type="module" src="/frontend/app.js"></script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="/">support<span>.</span></a
+      ><span>Acme · Espace de démonstration</span>
+    </header>
+    <main>
+      <div class="heading">
+        <div>
+          <p class="eyebrow">SUPPORT CLIENT</p>
+          <h1>Chaque demande a sa suite.</h1>
+          <p class="intro">
+            Retrouvez les demandes, répondez et suivez leur résolution.
+          </p>
+        </div>
+        <button id="new-ticket" aria-expanded="false" aria-controls="new-form">
+          Nouvelle demande <span aria-hidden="true">+</span>
+        </button>
+      </div>
+      <p id="error" role="alert" hidden></p>
+      <p id="notice" class="sr-only" role="status"></p>
+      <form id="new-form" hidden>
+        <h2>Nouvelle demande</h2>
+        <div class="form-grid">
+          <div>
+            <label for="subject">Sujet</label
+            ><input
+              id="subject"
+              name="subject"
+              required
+              minlength="3"
+              maxlength="100"
+              placeholder="En quelques mots"
+            />
+          </div>
+          <div>
+            <label for="priority">Priorité</label
+            ><select id="priority" name="priority">
+              <option value="normale">Normale</option>
+              <option value="urgente">Urgente</option>
+            </select>
+          </div>
+        </div>
+        <label for="description">Description</label
+        ><textarea
+          id="description"
+          name="description"
+          required
+          minlength="10"
+          maxlength="2000"
+          rows="3"
+          placeholder="Décrivez votre demande…"
+        ></textarea>
+        <div class="form-actions">
+          <button type="button" class="secondary" id="cancel-new">
+            Annuler</button
+          ><button type="submit">Créer la demande</button>
+        </div>
+      </form>
+      <div id="summary" class="summary" aria-label="Résumé des demandes"></div>
+      <div class="workspace">
+        <section class="inbox" aria-labelledby="list-title">
+          <div class="list-title">
+            <h2 id="list-title">Les demandes</h2>
+            <span id="count"></span>
+          </div>
+          <div class="filters">
+            <label class="sr-only" for="search">Rechercher une demande</label
+            ><input type="search" id="search" placeholder="Rechercher…" /><label
+              class="sr-only"
+              for="filter"
+              >Filtrer par statut</label
+            ><select id="filter">
+              <option value="">Tous les statuts</option>
+              <option value="ouvert">Ouvertes</option>
+              <option value="en_cours">En cours</option>
+              <option value="resolu">Résolues</option>
+            </select>
+          </div>
+          <ul id="tickets"></ul>
+          <p id="empty" hidden>
+            Aucune demande ne correspond à votre recherche.
+          </p>
+        </section>
+        <section id="detail" class="detail" aria-label="Détail de la demande">
+          <p>Sélectionnez une demande.</p>
+        </section>
+      </div>
+    </main>
+    <footer>
+      <span>Données fictives · application locale</span
+      ><button id="reset" class="text-button">Réinitialiser la démo</button>
+    </footer>
+  </body>
+</html>
