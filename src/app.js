@@ -1,77 +1,70 @@
-import { parcours, initialCompleted } from './parcours.js';
+import { initialFeedbacks, statuses } from './feedbacks.js';
 
-const storageKey = 'parcours-client.v1';
-const list = document.querySelector('#steps');
-const progress = document.querySelector('#progress');
-const progressLabel = document.querySelector('#progress-label');
-const next = document.querySelector('#next');
-const complete = document.querySelector('#complete');
+const storageKey = 'portail-feedback.v1';
+const list = document.querySelector('#feedbacks');
+const count = document.querySelector('#count');
+const form = document.querySelector('#feedback-form');
+const input = document.querySelector('#feedback-text');
+const notice = document.querySelector('#notice');
 const storageMessage = document.querySelector('#storage-message');
 
-function readCompleted() {
+function readFeedbacks() {
   try {
     const saved = JSON.parse(localStorage.getItem(storageKey));
-    if (Array.isArray(saved)) return new Set(saved.filter(id => parcours.some(step => step.id === id)));
-  } catch { /* Une sauvegarde illisible repart de l'état initial. */ }
-  return new Set(initialCompleted);
+    if (Array.isArray(saved) && saved.every(item => item && typeof item.id === 'string' && typeof item.text === 'string' && item.text.trim() && item.text.length <= 500 && statuses.includes(item.status))) return saved;
+  } catch { /* Une sauvegarde illisible repart des exemples. */ }
+  return structuredClone(initialFeedbacks);
 }
 
-let completed = readCompleted();
+let feedbacks = readFeedbacks();
 
 function render() {
-  const current = parcours.find(step => !completed.has(step.id));
   list.replaceChildren();
-  for (const [index, step] of parcours.entries()) {
-    const done = completed.has(step.id);
-    const active = step === current;
+  count.textContent = `${feedbacks.length} retour${feedbacks.length > 1 ? 's' : ''}`;
+  for (const item of feedbacks) {
     const row = document.createElement('li');
-    row.className = done ? 'done' : active ? 'active' : '';
-    if (active) row.setAttribute('aria-current', 'step');
-
-    const number = document.createElement('span');
-    number.className = 'step-number';
-    number.textContent = done ? '✓' : String(index + 1).padStart(2, '0');
-    number.setAttribute('aria-hidden', 'true');
-    const content = document.createElement('div');
-    const title = document.createElement('h3');
-    title.textContent = step.title;
-    const description = document.createElement('p');
-    description.textContent = step.description;
-    content.append(title, description);
+    const text = document.createElement('p');
+    text.textContent = item.text;
     const status = document.createElement('span');
-    status.className = 'status';
-    status.textContent = done ? 'Terminée' : active ? 'En cours' : 'À venir';
-    row.append(number, content, status);
+    status.className = `status status-${statuses.indexOf(item.status)}`;
+    status.textContent = item.status;
+    row.append(text, status);
     list.append(row);
   }
-  progress.max = parcours.length;
-  progress.value = completed.size;
-  progressLabel.textContent = `${completed.size} sur ${parcours.length}`;
-  next.textContent = current ? `Prochaine action : ${current.description}` : 'Votre parcours est terminé. Merci !';
-  complete.hidden = !current;
 }
 
 function save() {
   try {
-    localStorage.setItem(storageKey, JSON.stringify([...completed]));
+    localStorage.setItem(storageKey, JSON.stringify(feedbacks));
     storageMessage.hidden = true;
   } catch {
-    storageMessage.textContent = 'Votre navigateur ne permet pas de sauvegarder la progression. Elle restera disponible pendant cette visite.';
+    storageMessage.textContent = 'Votre navigateur ne permet pas la sauvegarde. Vos retours restent disponibles pendant cette visite.';
     storageMessage.hidden = false;
   }
   render();
 }
 
-complete.addEventListener('click', () => {
-  const current = parcours.find(step => !completed.has(step.id));
-  if (current) completed.add(current.id);
+input.addEventListener('input', () => input.setCustomValidity(''));
+form.addEventListener('submit', event => {
+  event.preventDefault();
+  const text = input.value.trim();
+  if (!text) {
+    input.setCustomValidity('Écrivez votre retour avant de l’envoyer.');
+    input.reportValidity();
+    return;
+  }
+  feedbacks.unshift({ id: crypto.randomUUID(), text, status: 'À étudier' });
   save();
-  if (complete.hidden) document.querySelector('#restart').focus();
+  form.reset();
+  notice.textContent = 'Votre retour a été ajouté.';
 });
 
 document.querySelector('#restart').addEventListener('click', () => {
-  completed = new Set(initialCompleted);
+  feedbacks = structuredClone(initialFeedbacks);
   save();
+  form.reset();
+  input.setCustomValidity('');
+  notice.textContent = 'Les exemples de départ sont rétablis.';
 });
 
 render();

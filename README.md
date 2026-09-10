@@ -1,8 +1,8 @@
-# Parcours client
+# Portail de feedback
 
 Une petite application locale pour pratiquer Claude Code sur un dépôt facile à comprendre.
 
-Un client fictif, cinq étapes et une prochaine action. Le bouton « Valider cette étape » fait avancer le parcours. La progression reste dans le navigateur ; « Recommencer » retrouve l'état de départ.
+Une page pour déposer un retour et consulter les retours avec leur statut : « À étudier », « Prévu » ou « Livré ». Les nouveaux retours restent dans le navigateur ; « Réinitialiser la démo » retrouve les trois exemples de départ.
 
 ## Démarrer
 
@@ -22,8 +22,8 @@ Dans Claude Desktop, ouvrir l'onglet **Code**, choisir un environnement **Local*
 
 ```text
 index.html        La page
-src/parcours.js   Les étapes et l'état initial
-src/app.js        La progression et son affichage
+src/feedbacks.js  Les exemples de retours et les statuts
+src/app.js        Le formulaire, la sauvegarde et l'affichage
 src/style.css     L'apparence
 server.mjs        Le serveur local
 ```
