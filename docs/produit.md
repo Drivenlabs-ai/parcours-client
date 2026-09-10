@@ -1,6 +1,6 @@
 # Le produit
 
-Un petit portail support, utilisé localement par une personne pendant la formation. Le client de démonstration est Acme ; toutes les demandes sont fictives.
+Un petit portail support, utilisé localement par une personne pendant la formation. L’interface reprend l’identité visuelle d’Imagine Human ; toutes les demandes sont fictives.
 
 ## Ce que l'on peut faire
 
