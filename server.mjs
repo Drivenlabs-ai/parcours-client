@@ -5,7 +5,7 @@ const files = new Map([
   ['/', ['index.html', 'text/html']],
   ['/index.html', ['index.html', 'text/html']],
   ['/src/app.js', ['src/app.js', 'text/javascript']],
-  ['/src/parcours.js', ['src/parcours.js', 'text/javascript']],
+  ['/src/feedbacks.js', ['src/feedbacks.js', 'text/javascript']],
   ['/src/style.css', ['src/style.css', 'text/css']],
 ]);
 const port = Number(process.env.PORT || 3000);
@@ -28,4 +28,4 @@ server.on('error', error => {
   console.error(error.code === 'EADDRINUSE' ? `Le port ${port} est déjà utilisé. Fermez l'application qui l'utilise ou définissez PORT.` : error.message);
   process.exitCode = 1;
 });
-server.listen(port, '127.0.0.1', () => console.log(`Parcours client : http://localhost:${port}`));
+server.listen(port, '127.0.0.1', () => console.log(`Portail de feedback : http://localhost:${port}`));

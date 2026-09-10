@@ -1,9 +1,9 @@
 {
-  "name": "parcours-client",
+  "name": "portail-feedback",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Un portail de parcours client local pour pratiquer Claude Code.",
+  "description": "Un portail de feedback local pour pratiquer Claude Code.",
   "scripts": { "start": "node server.mjs" },
   "engines": { "node": ">=22" }
 }
