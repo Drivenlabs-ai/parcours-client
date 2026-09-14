@@ -4,7 +4,10 @@ import { AppError, statuses } from "./domain.js";
 import { createStore } from "./store.js";
 
 const staticFiles = new Map([
-  ["/frontend/brand/imagine-human.png", ["brand/imagine-human.png", "image/png"]],
+  [
+    "/frontend/brand/imagine-human.png",
+    ["brand/imagine-human.png", "image/png"],
+  ],
   ["/frontend/brand/work-sans.woff2", ["brand/work-sans.woff2", "font/woff2"]],
   ["/", ["index.html", "text/html"]],
   ["/frontend/app.js", ["app.js", "text/javascript"]],

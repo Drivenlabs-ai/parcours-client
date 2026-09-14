@@ -4,10 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Portail support · Imagine Human</title>
+    <meta
+      name="description"
+      content="Portail de support local, données fictives pour la formation Imagine Human."
+    />
+    <link rel="icon" href="/frontend/brand/imagine-human.png" />
     <link rel="stylesheet" href="/frontend/style.css" />
     <script type="module" src="/frontend/app.js"></script>
   </head>
   <body>
+    <a class="skip-link" href="#main">Aller aux demandes</a>
     <header class="masthead">
       <a href="/" aria-label="Imagine Human, accueil du support">
         <img
@@ -20,11 +26,11 @@
       </a>
       <span class="environment">Espace de démonstration</span>
     </header>
-    <main>
+    <main id="main">
       <div class="heading">
         <div>
-          <p class="eyebrow">IMAGINE HUMAN</p>
-          <h1>Votre espace support.</h1>
+          <p class="eyebrow">PORTAIL SUPPORT</p>
+          <h1>Les demandes, au même endroit.</h1>
           <p class="intro">
             Retrouvez les demandes, répondez et suivez leur résolution.
           </p>
@@ -48,13 +54,6 @@
               maxlength="100"
               placeholder="En quelques mots"
             />
-          </div>
-          <div>
-            <label for="priority">Priorité</label
-            ><select id="priority" name="priority">
-              <option value="normale">Normale</option>
-              <option value="urgente">Urgente</option>
-            </select>
           </div>
         </div>
         <label for="description">Description</label

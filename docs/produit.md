@@ -1,25 +1,25 @@
-# Le produit
+# Le portail support
 
-Un petit portail support, utilisé localement par une personne pendant la formation. L’interface reprend l’identité visuelle d’Imagine Human ; toutes les demandes sont fictives.
+Application locale de formation pour une seule personne. Les trois demandes, dates et échanges fournis sont fictifs.
 
-## Ce que l'on peut faire
+## Fonctions au départ
 
-Créer une demande, rechercher dans les sujets et descriptions, filtrer par statut, ouvrir une demande, y répondre et changer son statut.
+Créer une demande, rechercher dans le sujet et la description, filtrer par statut, ouvrir le détail, ajouter une réponse et changer le statut. Les compteurs portent sur toutes les demandes, même masquées par les filtres.
 
 ## Règles métier
 
-- Sujet : de 3 à 100 caractères après suppression des espaces aux extrémités.
-- Description : de 10 à 2 000 caractères ; réponse : de 1 à 2 000 caractères.
-- Priorité : `normale` ou `urgente` ; statut initial : `ouvert`.
-- Statuts : `ouvert`, `en_cours`, `resolu`.
+- Sujet : 3 à 100 caractères, après suppression des espaces aux extrémités.
+- Description : 10 à 2 000 caractères ; réponse : 1 à 2 000 caractères.
+- Statut initial : `ouvert`. Statuts possibles : `ouvert`, `en_cours`, `resolu`.
 - Une demande doit avoir au moins une réponse avant de passer à `resolu`.
-- Les réponses de cette démo sont signées « Support ».
-- Les compteurs décrivent toutes les demandes, même lorsqu'un filtre masque une partie de la liste.
+- Les réponses sont signées « Support » ; aucun compte utilisateur.
+- Recherche insensible à la casse ; recherche et statut se combinent.
+- Le brouillon d’une réponse reste disponible quand on change de demande ou qu’une écriture échoue. Il reste en mémoire du navigateur, pas après rechargement.
 
-## Limites assumées
+## Données et limites
 
-Un seul processus Node.js écrit le fichier JSON local. Aucune authentification ni séparation entre clients n'est prévue. Cette base n'est pas destinée à un déploiement public du service : le dépôt est public, l'application tourne sur le poste de chaque participant.
+`data/tickets.seed.json` contient les exemples partagés. Au premier démarrage, le serveur crée `data/tickets.local.json` dans sa propre copie de travail. Chaque écriture relit les données puis remplace le fichier par renommage. Un seul processus Node écrit ce fichier.
 
-## Pendant la formation
+Les tests utilisent des fichiers temporaires distincts. La réinitialisation remet les trois exemples et supprime les demandes et réponses ajoutées dans cette copie, après confirmation.
 
-Le dépôt fournit un vrai frontend, une API et des données. Les skills, règles ciblées, hooks et agents spécialisés pourront être ajoutés pendant les exercices. La simplicité du produit laisse la place au travail sur Claude Code.
+Pas d’affectation ni de priorité au départ : ces évolutions sont à réaliser pendant l’atelier. Pas de service cloud, d’authentification, de synchronisation entre postes ni de dépendance externe. Le service écoute sur `127.0.0.1`.

@@ -1,12 +1,13 @@
 {
-  "name": "portail-support",
-  "version": "0.1.0",
+  "name": "parcours-client",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Portail support local pour pratiquer Claude Code",
+  "description": "Portail support local — point de départ de la formation Claude Code",
   "scripts": {
     "start": "node backend/server.js",
-    "test": "node --test tests/*.test.js"
+    "test": "node --test tests/*.test.js",
+    "reset-data": "node scripts/reset-data.js"
   },
   "engines": {
     "node": ">=22"

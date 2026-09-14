@@ -2,8 +2,7 @@ node_modules/
 .DS_Store
 .env
 .env.*
-!.env.example
-.claude/worktrees/
 data/*.local.json
 data/*.local.json.tmp
+.claude/worktrees/
 CLAUDE.local.md

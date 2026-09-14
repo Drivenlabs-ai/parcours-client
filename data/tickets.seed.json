@@ -3,23 +3,21 @@
     "id": "export-csv",
     "subject": "L’export CSV ne contient pas les dates",
     "description": "Quand je télécharge la liste des demandes, la colonne des dates reste vide. Pouvez-vous regarder ?",
-    "priority": "urgente",
     "status": "ouvert",
     "createdAt": "2026-09-10T08:30:00.000Z",
     "messages": []
   },
   {
     "id": "acces-collegue",
-    "subject": "Donner accès à un nouveau collègue",
-    "description": "Un nouveau collègue rejoint notre équipe. Nous aimerions savoir comment lui donner accès aux documents.",
-    "priority": "normale",
+    "subject": "Le filtre des demandes semble incomplet",
+    "description": "Après avoir recherché un sujet puis changé le statut, je ne retrouve plus une demande. Comment vérifier les filtres actifs ?",
     "status": "en_cours",
     "createdAt": "2026-09-09T14:15:00.000Z",
     "messages": [
       {
         "id": "message-1",
         "author": "Support",
-        "text": "Nous préparons la procédure d’invitation. Je reviens vers vous avec les étapes.",
+        "text": "Pouvez-vous préciser le sujet recherché et le statut sélectionné ? Nous allons reproduire cette combinaison.",
         "createdAt": "2026-09-09T15:00:00.000Z"
       }
     ]
@@ -28,7 +26,6 @@
     "id": "affichage-mobile",
     "subject": "Le tableau déborde sur mobile",
     "description": "Sur un petit écran, certaines colonnes du tableau sont difficiles à lire.",
-    "priority": "normale",
     "status": "resolu",
     "createdAt": "2026-09-08T09:00:00.000Z",
     "messages": [

@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { once } from "node:events";
@@ -34,7 +34,6 @@ test("créer, répondre et résoudre une demande ; persistance dans le fichier",
   const created = await request("/api/tickets", "POST", {
     subject: "  Un nouvel export  ",
     description: "Nous souhaitons exporter les données.",
-    priority: "urgente",
   });
   assert.equal(created.status, 201);
   assert.equal(created.body.ticket.subject, "Un nouvel export");
@@ -68,11 +67,6 @@ test("rejeter les entrées invalides sans ajouter de ticket", async (t) => {
     { subject: "  ", description: "Une description correcte." },
     { subject: "Valide", description: "Court" },
     { subject: "Valide", description: "x".repeat(2001) },
-    {
-      subject: "Valide",
-      description: "Une description correcte.",
-      priority: "inconnue",
-    },
   ]) {
     assert.equal((await request("/api/tickets", "POST", body)).status, 400);
   }
@@ -113,6 +107,38 @@ test("réinitialiser les seules données de démonstration", async (t) => {
   assert.equal((await request("/api/tickets")).body.tickets.length, 4);
   assert.equal((await request("/api/reset", "POST", {})).status, 200);
   assert.equal((await request("/api/tickets")).body.tickets.length, 3);
+});
+
+test("un refus de résolution préserve exactement les données ; les autres changements gardent les réponses", async (t) => {
+  const { request, file } = await fixture(t);
+  const before = readFileSync(file, "utf8");
+  const rejected = await request("/api/tickets/export-csv", "PATCH", {
+    status: "resolu",
+  });
+  assert.equal(rejected.status, 422);
+  assert.match(rejected.body.error, /réponse/);
+  assert.equal(readFileSync(file, "utf8"), before);
+  const original = (await request("/api/tickets/acces-collegue")).body.ticket;
+  const updated = (
+    await request("/api/tickets/acces-collegue", "PATCH", { status: "resolu" })
+  ).body.ticket;
+  assert.deepEqual(updated, { ...original, status: "resolu" });
+  assert.deepEqual(createStore(file).get(updated.id), updated);
+});
+
+test("un corps trop volumineux est refusé sans écriture", async (t) => {
+  const { request, file } = await fixture(t);
+  const before = readFileSync(file, "utf8");
+  assert.equal(
+    (
+      await request("/api/tickets", "POST", {
+        subject: "Long",
+        description: "x".repeat(17000),
+      })
+    ).status,
+    413,
+  );
+  assert.equal(readFileSync(file, "utf8"), before);
 });
 
 test("plusieurs créations conservent toutes les demandes", async (t) => {

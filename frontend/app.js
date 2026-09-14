@@ -39,8 +39,13 @@ function renderList() {
     button.append(el("span", "ticket-subject", ticket.subject));
     const meta = el("span", "ticket-meta");
     meta.append(badge(ticket));
-    if (ticket.priority === "urgente")
-      meta.append(el("span", "urgent", "Urgente"));
+    meta.append(
+      el(
+        "span",
+        "",
+        `${ticket.messages.length} réponse${ticket.messages.length > 1 ? "s" : ""}`,
+      ),
+    );
     button.append(meta);
     button.addEventListener("click", () => {
       selectedId = ticket.id;
@@ -62,13 +67,7 @@ function renderDetail() {
     return;
   }
   const top = el("div", "detail-top");
-  top.append(
-    el(
-      "span",
-      ticket.priority === "urgente" ? "urgent" : "muted",
-      ticket.priority === "urgente" ? "Priorité urgente" : "Priorité normale",
-    ),
-  );
+  top.append(el("span", "ticket-reference", `# ${ticket.id.slice(0, 18)}`));
   const control = el("div", "status-control");
   const label = el("label", "", "Statut");
   label.htmlFor = "ticket-status";

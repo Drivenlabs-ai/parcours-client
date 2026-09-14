@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto";
 
 export const statuses = ["ouvert", "en_cours", "resolu"];
-export const priorities = ["normale", "urgente"];
 
 export class AppError extends Error {
   constructor(message, status = 400) {
@@ -26,13 +25,10 @@ export function createTicket(input) {
     throw new AppError("Demande invalide.");
   const subject = text(input.subject, "Le sujet", 3, 100);
   const description = text(input.description, "La description", 10, 2000);
-  const priority = input.priority ?? "normale";
-  if (!priorities.includes(priority)) throw new AppError("Priorité inconnue.");
   return {
     id: randomUUID(),
     subject,
     description,
-    priority,
     status: "ouvert",
     createdAt: new Date().toISOString(),
     messages: [],
