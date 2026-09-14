@@ -14,14 +14,21 @@ cd parcours-client
 node --version
 ```
 
-Si le guide vous a déjà fait cloner ce dépôt, ouvrir cette copie et vérifier `git status --short`. Si la sortie est vide, la mettre à jour :
+Si le guide vous a déjà fait cloner ce dépôt, ouvrir cette copie et vérifier son état et sa branche :
+
+```sh
+git status --short
+git branch --show-current
+```
+
+Continuer uniquement si la première commande ne retourne rien et si la seconde affiche `main`. Mettre alors la copie à jour :
 
 ```sh
 git pull --ff-only
 git fetch --tags
 ```
 
-Si la sortie indique des modifications ou si la mise à jour échoue, **conserver le dossier intact** et demander de l’aide au formateur. Préparer une nouvelle copie dans un autre dossier si nécessaire ; ne pas utiliser `reset --hard` ni supprimer la copie existante.
+Si la copie contient des modifications, si la branche n’est pas `main` ou si la mise à jour échoue, **conserver le dossier intact** et demander de l’aide au formateur. Préparer une nouvelle copie dans un autre dossier si nécessaire ; ne pas utiliser `reset --hard` ni supprimer la copie existante.
 
 La copie Git hors connexion fournie avec l’activité conserve aussi l’historique et le tag de départ :
 
